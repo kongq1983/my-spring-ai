@@ -22,6 +22,8 @@ public class ToolController {
 //                .defaultSystem("你是一个精通Java的工程师，专门解决Java遇到的问题。")// 设定默认角色
                 .defaultSystem("你是一个时间助手! 主要协助用户回答时间方面的解答!!")// 设定默认角色
                 .defaultUser("你是谁？")//设置默认问题
+                // 默认工具
+                .defaultTools(new DateTimeTools(),new LotteryTools())
                 .build();
 
     }
@@ -35,7 +37,8 @@ public class ToolController {
     public String chat(@RequestParam(value = "input",defaultValue = "现在时间")  String userInput) {
         String content = this.chatClient.prompt()
                 .user(userInput)
-                .tools(new DateTimeTools(),new LotteryTools())
+                // 这里在defaultTools指定了
+//                .tools(new DateTimeTools(),new LotteryTools())
                 .call()
                 .content();
         log.info("content: {}", content);
